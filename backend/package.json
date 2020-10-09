@@ -1,0 +1,28 @@
+{
+  "name": "api-express-mongo",
+  "version": "1.0.0",
+  "description": "Example API Using Node Express Mongo Jest",
+  "main": "server.js",
+  "scripts": {
+    "test": "yarn test",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ganjarsetia/API-Express-Mongo.git"
+  },
+  "keywords": [
+    "nodejs",
+    "expressjs",
+    "jest"
+  ],
+  "author": "Ganjar Setia",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ganjarsetia/API-Express-Mongo/issues"
+  },
+  "homepage": "https://github.com/ganjarsetia/API-Express-Mongo#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
