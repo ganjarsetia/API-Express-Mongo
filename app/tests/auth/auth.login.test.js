@@ -1,7 +1,5 @@
 import supertest from 'supertest';
-import mongoose from 'mongoose';
 import app from '../../config/express';
-import config from '../../config/config';
 import User from '../../user/user.model';
 import setupDB from '../setup';
 const request = supertest(app);

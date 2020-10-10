@@ -1,6 +1,7 @@
 import express from 'express';
 import userRoutes from './user/user.route';
 import authRoutes from './auth/auth.route';
+import publishingRoutes from './publishing/publishing.route';
 import isAuth from './middleware/is-auth';
 import { APIsuccess } from './helpers/API-responses';
 
@@ -17,5 +18,8 @@ router.use('/auth', authRoutes);
 
 // Users routes /api/users
 router.use('/users', userRoutes);
+
+// Publishing routes /publishings
+router.use('/publishings', publishingRoutes);
 
 export default router;
