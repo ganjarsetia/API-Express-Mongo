@@ -3,17 +3,14 @@ import mongoose from 'mongoose';
 import app from '../../config/express';
 import config from '../../config/config';
 import User from '../../user/user.model';
+import setupDB from '../setup';
 const request = supertest(app);
+
+setupDB();
 
 describe('Auth - login - /api/auth/login', () => {
   beforeAll(async () => {
     // mongodb connection -> create user
-    mongoose.Promise = Promise;
-    const mongoUri = config.mongo.host_test;
-    mongoose.connect(mongoUri, { server: { socketOptions: { keepAlive: 1 } } });
-    mongoose.connection.on('error', () => {
-      throw new Error(`unable to connect to database: ${mongoUri}`);
-    });
     await request.post('/api/users').send({
       email: 'testemail@test.com',
       password: 'password',
@@ -26,7 +23,6 @@ describe('Auth - login - /api/auth/login', () => {
   afterAll(async () => {
     // remove all users and close
     await User.remove({});
-    mongoose.connection.close();
   });
 
   test('POST - /api/auth/login - empty body', async done => {
