@@ -14,7 +14,7 @@ import winstonInstance from './winston';
 import routes from '../index.route';
 import config from './config';
 import is404 from '../middleware/is-404';
-import path from 'path';
+import publishingRoutes from '../publishing/publishing.route';
 
 // init express app
 const app = express();
@@ -58,6 +58,10 @@ if (config.env === 'development') {
 
 // mount all routes on /api path
 app.use('/api', routes);
+
+// below for public API
+app.use('/publishings', publishingRoutes);
+
 // 404
 app.use(is404);
 
