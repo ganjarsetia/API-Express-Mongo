@@ -55,3 +55,21 @@ export default function setupDB(databaseName) {
     await mongoose.connection.close();
   });
 }
+
+export const connectDB = async () => {
+  const mongoUri = config.mongo.host_test;
+  mongoose.Promise = global.Promise;
+  mongoose.connect(mongoUri, {
+    useNewUrlParser: true,
+    server: { socketOptions: { keepAlive: 1 } }
+  });
+  mongoose.connection.on('error', () => {
+    throw new Error(`unable to connect to database: ${mongoUri}`);
+  });
+};
+
+export const disconnectDB = async () => {
+  await dropAllCollections();
+  await mongoose.connection.dropDatabase();
+  await mongoose.connection.close();
+};
