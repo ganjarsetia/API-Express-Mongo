@@ -15,6 +15,7 @@ import routes from '../index.route';
 import config from './config';
 import is404 from '../middleware/is-404';
 import publishingRoutes from '../publishing/publishing.route';
+import authorRoutes from '../author/author.route';
 
 // init express app
 const app = express();
@@ -61,6 +62,7 @@ app.use('/api', routes);
 
 // below for public API
 app.use('/publishings', publishingRoutes);
+app.use('/authors', authorRoutes);
 
 // 404
 app.use(is404);
