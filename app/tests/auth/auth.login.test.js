@@ -4,7 +4,7 @@ import User from '../../user/user.model';
 import setupDB from '../setup';
 const request = supertest(app);
 
-setupDB();
+setupDB('db_auth');
 
 describe('Auth - login - /api/auth/login', () => {
   beforeAll(async () => {
