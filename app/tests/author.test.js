@@ -1,8 +1,10 @@
 import supertest from 'supertest';
 import app from '../config/express';
 import Author from '../author/author.model';
-import { connectDB, disconnectDB } from './setup';
+import setupDB from './setup';
 const request = supertest(app);
+
+setupDB('db_author');
 
 const sampleData = [
   { name: 'Ganjar', birth: '1900-01-02T00:00:00.000Z', active: true, sponsor: 'Patreon' },
@@ -12,12 +14,10 @@ let authorRows = '';
 
 describe('API Author /authors', () => {
   beforeAll(async () => {
-    await connectDB();
     authorRows = await Author.insertMany(sampleData);
   });
   afterAll(async () => {
     await Author.remove({});
-    await disconnectDB();
   });
 
   test('GET - /authors - get all data', async done => {
@@ -153,9 +153,7 @@ describe('API Author /authors', () => {
     expect(typeof body).toBe('object');
     expect(body.success).toBeTruthy();
     expect(body.message).toBe('Author updated with success.');
-
-    // this is buggy with jest, uncomment to see the result
-    // expect(body.data).toMatchObject(expectedResult);
+    expect(body.data).toMatchObject(expectedResult);
     done();
   });
 

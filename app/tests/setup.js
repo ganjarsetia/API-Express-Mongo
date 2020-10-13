@@ -32,7 +32,7 @@ async function dropAllCollections() {
 export default function setupDB(databaseName) {
   // Connect to Mongoose
   beforeAll(async () => {
-    const mongoUri = config.mongo.host_test;
+    const mongoUri = config.mongo.host_test + databaseName;
     mongoose.Promise = global.Promise;
     mongoose.connect(mongoUri, {
       useNewUrlParser: true,
@@ -56,8 +56,9 @@ export default function setupDB(databaseName) {
   });
 }
 
+// use this for manual connect
 export const connectDB = async () => {
-  const mongoUri = config.mongo.host_test;
+  const mongoUri = config.mongo.host_test + databaseName;
   mongoose.Promise = global.Promise;
   mongoose.connect(mongoUri, {
     useNewUrlParser: true,
@@ -68,6 +69,7 @@ export const connectDB = async () => {
   });
 };
 
+// use this for manual disconnect
 export const disconnectDB = async () => {
   await dropAllCollections();
   await mongoose.connection.dropDatabase();

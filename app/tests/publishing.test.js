@@ -1,20 +1,20 @@
 import supertest from 'supertest';
 import app from '../config/express';
 import Publishing from '../publishing/publishing.model';
-import { connectDB, disconnectDB } from './setup';
+import setupDB from './setup';
 const request = supertest(app);
+
+setupDB('db_pub');
 
 const sampleData = [{ name: 'Pubilsher one' }, { name: 'Pubilsher dua' }];
 let publishingRows = '';
 
 describe('API Publishing /publishings', () => {
   beforeAll(async () => {
-    await connectDB();
     publishingRows = await Publishing.insertMany(sampleData);
   });
   afterAll(async () => {
     await Publishing.remove({});
-    await disconnectDB();
   });
 
   test('GET - /publishings - get all data', async done => {
@@ -135,9 +135,7 @@ describe('API Publishing /publishings', () => {
     expect(typeof body).toBe('object');
     expect(body.success).toBeTruthy();
     expect(body.message).toBe('Publishing updated with success.');
-
-    // this is buggy with jest, uncomment to see the result
-    // expect(body.data).toMatchObject(expectedResult);
+    expect(body.data).toMatchObject(expectedResult);
     done();
   });
 
