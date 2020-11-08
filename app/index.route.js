@@ -3,6 +3,7 @@ import userRoutes from './user/user.route';
 import authRoutes from './auth/auth.route';
 import publishingRoutes from './publishing/publishing.route';
 import authorRoutes from './author/author.route';
+import bookRoutes from './book/book.route';
 import isAuth from './middleware/is-auth';
 import { APIsuccess } from './helpers/API-responses';
 
@@ -25,5 +26,8 @@ router.use('/publishings', publishingRoutes);
 
 // Author routes /authors
 router.use('/authors', authorRoutes);
+
+// Author routes /authors
+router.use('/books', bookRoutes);
 
 export default router;
